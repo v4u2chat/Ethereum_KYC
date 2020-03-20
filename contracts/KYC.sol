@@ -296,8 +296,8 @@ contract KYC {
     function addBank(string memory bankName,string memory regNumber,address ethAddress) public payable {
 
         require(msg.sender==admin, "Only admin can add bank");
-        require(areBothStringSame(banks[ethAddress].name,bankName), "A Bank already exists with same name");
-        require(bankVsRegNoMapping[bankName].ethAddress == address(0), "A Bank already exists with same registration number");
+        require(!areBothStringSame(banks[ethAddress].name,bankName), "A Bank already exists with same name");
+        require(bankVsRegNoMapping[bankName].ethAddress != address(0), "A Bank already exists with same registration number");
 
         banks[ethAddress] = Bank(bankName,regNumber,0,0,ethAddress,true,true,true);
         bankAddresses.push(ethAddress);
