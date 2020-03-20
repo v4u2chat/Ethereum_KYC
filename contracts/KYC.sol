@@ -64,7 +64,7 @@ contract KYC {
         admin = msg.sender;
     }
 
-    
+
     address[] bankAddresses;    //  To keep list of bank addresses. So that we can loop through when required
 
     mapping(string => Customer) customersInfo;  //  Mapping a customer's username to the Customer
@@ -87,13 +87,13 @@ contract KYC {
     function addNewCustomerRequest(string memory custName, string memory custData) public payable returns(int){
         require(banks[msg.sender].kycPrivilege, "Requested Bank does'nt have KYC Privilege");
         require(kycRequests[custName].bankAddress != address(0), "A KYC Request is already pending with this Customer");
-        
+
         kycRequests[custName] = Request(custName,custData, msg.sender, false);
         banks[msg.sender].kycCount++;
-        
+
         emit CustomerRequestAdded();
         auditBankAction(msg.sender,BankActions.AddKYC);
-        
+
         return 1;
     }
 
@@ -127,11 +127,11 @@ contract KYC {
     function addCustomer(string memory custName,string memory custData) public payable {
         require(banks[msg.sender].isAllowedToAddCustomer, "Requested Bank does not have Voting Privilege");
         require(customersInfo[custName].validatedBank == address(0), "Requested Customer already exists");
-        
+
         customersInfo[custName] = Customer(custName, custData, 0,0,msg.sender,false);
-        
+
         auditBankAction(msg.sender,BankActions.AddCustomer);
-        
+
         emit NewCustomerCreated();
     }
 
@@ -170,14 +170,14 @@ contract KYC {
     function modifyCustomer(string memory custName,string memory custData) public payable returns(int){
         require(customersInfo[custName].validatedBank != address(0), "Requested Customer not found");
         removeCustomerRequest(custName);
-        
+
         customersInfo[custName].data = custData;
         customersInfo[custName].upVotes = 0;
         customersInfo[custName].downVotes = 0;
 
         auditBankAction(msg.sender,BankActions.ModifyCustomer);
         emit CustomerInfoModified();
-        
+
         return 1;
     }
 
@@ -211,7 +211,7 @@ contract KYC {
         auditBankAction(msg.sender,BankActions.ViewCustomer);
         return (customersInfo[custName].kycStatus);
     }
-    
+
     /********************************************************************************************************************
      *
      *  Name        :   upVoteCustomer
@@ -355,7 +355,7 @@ contract KYC {
         emit BankBlockedFromKYC();
         return 1;
     }
-    
+
 
     /*********************************************************
     *            Internal functions
