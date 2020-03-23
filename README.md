@@ -90,3 +90,7 @@ The blockchain is an immutable distributed ledger shared with everyone involved 
   
 
 Banks can utilize the feature set of Blockchain to reduce the difficulties faced by the traditional KYC process. A distributed ledger can be set up between all the banks, where one bank can upload the KYC of a customer and other banks can vote on the legitimacy of the customer details. KYC for the customers will be immutably stored on the blockchain and will be accessible to all the banks in the Blockchain.
+
+
+
+
